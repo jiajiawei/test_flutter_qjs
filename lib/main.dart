@@ -27,15 +27,13 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   var a = 1;
-  var b = 100;
-  TextEditingController controller = TextEditingController(text: 'b=a');
+  TextEditingController controller = TextEditingController(text: 'a = a + 1');
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
-          Text(a.toString()),
-          Text(b.toString()),
+          Text('a: $a'),
           Container(
             decoration: BoxDecoration(border: Border.all()),
             child: SizedBox(
@@ -52,9 +50,9 @@ class _MyHomePageState extends State<MyHomePage> {
         onPressed: () {
           final injectObj = {
             'a': ScriptProperty(() => a, (v) => setState(() => a = v)),
-            'b': ScriptProperty(() => b, (v) => setState(() => b = v)),
+            'print': print,
           };
-          JsEngine.eval(injectObj, controller.text);
+          print(JsEngine.eval(injectObj, controller.text));
         },
       ),
     );
